@@ -1,5 +1,7 @@
 require 'net/http'
 require 'uri'
+require 'json'
+#require 'figaro' Require testing
 
 #   {
 #      "followers_count" : 840,
@@ -21,7 +23,6 @@ class Twit
   attr_accessor :text
   attr_accessor :favoriteCount 
 end
-
 class TwitSorter
   def SortTwits
   
@@ -40,5 +41,10 @@ response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
   http.request(request)
 end
 
+parsed = JSON.parse(response.body)
+parsed["statuses"].each do |parse|
+  puts parse
+end
+puts "acabou!"
 
 
